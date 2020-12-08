@@ -30,7 +30,7 @@ Build a Node CLI that takes in information about employees and generates an HTML
  `npm app.js`
 
 
-## Credits:
+## Npm:
 
 *  [jest](https://jestjs.io/)
 * [inquirer](https://www.npmjs.com/package/inquirer)
