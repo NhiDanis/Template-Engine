@@ -11,7 +11,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 
-const outputArr = [];
+const output = [];
 const questions = [
     {
         type: 'list' ,
@@ -74,13 +74,13 @@ const questions = [
 
 function teamUser() {
     inquirer.prompt(questions).then (answers => {
-        outputArr.push(answers)
+        output.push(answers)
             if(answers.member) {
                 teamUser();
             }
 
             else {
-                const team = outputArr.map(employee => {
+                const team = output.map(employee => {
                     switch (employee.role) {
                         case "Intern":
                             return new Intern(employee.name, employee.id, employee.email, employee.school);
@@ -95,8 +95,17 @@ function teamUser() {
                             throw "Unknown Employee Role"
                     }
                 });
-    
+    fs.writeFile(outputPath, render(team), err => {
+        if (err) {
+            throw (err)
+        }
+        
+        console.log("SUCCESS!!")
+        
+        });
     
         }
     })
 }
+
+teamUser();
