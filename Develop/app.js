@@ -64,4 +64,39 @@ const questions = [
             return answers.role === "Manager";
         }
     },
+
+    {
+        type: 'confirm',
+        name: 'member',
+        message: 'Please confirm would you like to add another member?'
+    },
 ]
+
+function teamUser() {
+    inquirer.prompt(questions).then (answers => {
+        outputArr.push(answers)
+            if(answers.member) {
+                teamUser();
+            }
+
+            else {
+                const team = outputArr.map(employee => {
+                    switch (employee.role) {
+                        case "Intern":
+                            return new Intern(employee.name, employee.id, employee.email, employee.school);
+
+                        case "Manager":
+                            return new Manager(employee.name, employee.id, employee.email, employee.officenumber);
+                        
+                        case "Engineer":
+                            return new Engineer(employee.name, employee.id, employee.email, employee.github);
+
+                        default: 
+                            throw "Unknown Employee Role"
+                    }
+                });
+    
+    
+        }
+    })
+}
